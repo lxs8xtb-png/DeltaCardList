@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DeltaCard List</title>
+
+<style>
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: #111827;
+    color: white;
+}
+
+nav {
+    background: #dc2626;
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.4);
+}
+
+nav h1 {
+    font-size: 24px;
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+    gap: 25px;
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+nav a:hover {
+    color: #fde047;
+}
+
+header {
+    text-align: center;
+    padding: 50px 20px 30px;
+}
+
+header h2 {
+    font-size: 40px;
+    margin-bottom: 10px;
+}
+
+header p {
+    color: #cbd5e1;
+}
+
+.collection {
+    width: 90%;
+    max-width: 1200px;
+    margin: auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 30px;
+    padding: 30px 0 60px;
+}
+
+.carte {
+    display: flex;
+    justify-content: center;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+.carte img {
+    width: 100%;
+    max-width: 250px;
+    border-radius: 15px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.5);
+}
+
+.carte:hover {
+    transform: scale(1.08);
+}
+
+.carte:hover img {
+    box-shadow: 0 15px 35px rgba(0,0,0,0.8);
+}
+
+/* ===== VISIONNEUSE ===== */
+
+.visionneuse {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.92);
+    z-index: 1000;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    cursor: grab;
+    touch-action: none;
+}
+
+.visionneuse.active {
+    display: flex;
+}
+
+.visionneuse.dragging {
+    cursor: grabbing;
+}
+
+#grandeCarte {
+    max-width: 80vw;
+    max-height: 80vh;
+    border-radius: 15px;
+    box-shadow: 0 0 40px rgba(0,0,0,0.8);
+    user-select: none;
+    -webkit-user-drag: none;
+    pointer-events: none;
+    transform-origin: center center;
+}
+
+.fermer {
+    position: fixed;
+    top: 20px;
+    right: 30px;
+    font-size: 40px;
+    color: white;
+    background: rgba(0,0,0,0.5);
+    border: none;
+    width: 55px;
+    height: 55px;
+    border-radius: 50%;
+    cursor: pointer;
+    z-index: 1002;
+}
+
+.fermer:hover {
+    background: #dc2626;
+}
+
+.controles {
+    position: fixed;
+    bottom: 25px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 10px;
+    z-index: 1002;
+}
+
+.controles button {
+    background: white;
+    color: #111827;
+    border: none;
+    padding: 12px 18px;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.controles button:hover {
+    background: #fde047;
+}
+
+footer {
+    text-align: center;
+    padding: 25px;
+    background: #030712;
+    color: #94a3b8;
+}
+
+@media (max-width: 600px) {
+    nav {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    nav ul {
+        gap: 15px;
+    }
+
+    header h2 {
+        font-size: 30px;
+    }
+
+    #grandeCarte {
+        max-width: 90vw;
+        max-height: 75vh;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<nav>
+    <h1>Toutes les DeltaCards</h1>
+    <ul>
+        <li><a href="#accueil">Accueil</a></li>
+        <li><a href="#collection">Mes cartes</a></li>
+        <li><a href="#apropos">À propos</a></li>
+    </ul>
+</nav>
+
+<header id="accueil">
+    <h2>🎴 Mes DeltaCards</h2>
+    <p>Voici toutes les cartes Pokémon que j'ai créées !</p>
+</header>
+
+<main id="collection">
+    <div class="collection">
+
+        <div class="carte">
+            <img src="Delta1.png" alt="Carte Delta 1">
+        </div>
+
+        <div class="carte">
+            <img src="Delta2.png" alt="Carte Delta 2">
+        </div>
+
+        <div class="carte">
+            <img src="Delta3.png" alt="Carte Delta 3">
+        </div>
+
+        <div class="carte">
+            <img src="Delta4.png" alt="Carte Delta 4">
+        </div>
+
+    </div>
+</main>
+
+<section id="apropos">
+    <header>
+        <h2>À propos</h2>
+        <p>Juste des DeltaCards.</p>
+    </header>
+</section>
+
+<footer>
+    Les DeltaCards © 2026
+</footer>
+
+<!-- ===== VISIONNEUSE ===== -->
+
+<div class="visionneuse" id="visionneuse">
+
+    <button class="fermer" id="fermer">×</button>
+
+    <img id="grandeCarte" src="" alt="Carte agrandie">
+
+    <div class="controles">
+        <button id="moins">−</button>
+        <button id="reset">Réinitialiser</button>
+        <button id="plus">+</button>
+    </div>
+
+</div>
+
+<script>
+const visionneuse = document.getElementById("visionneuse");
+const grandeCarte = document.getElementById("grandeCarte");
+
+const fermer = document.getElementById("fermer");
+const plus = document.getElementById("plus");
+const moins = document.getElementById("moins");
+const reset = document.getElementById("reset");
+
+let zoom = 1;
+let x = 0;
+let y = 0;
+
+let enTrainDeDeplacer = false;
+let aBouge = false;
+let departX = 0;
+let departY = 0;
+let dernierX = 0;
+let dernierY = 0;
+
+
+/* ===== AFFICHER LA CARTE ===== */
+
+function afficherCarte() {
+    grandeCarte.style.transform =
+        "translate(" + x + "px, " + y + "px) scale(" + zoom + ")";
+}
+
+
+/* ===== OUVRIR ===== */
+
+document.querySelectorAll(".carte img").forEach(image => {
+
+    image.addEventListener("click", function() {
+
+        grandeCarte.src = this.src;
+
+        zoom = 1;
+        x = 0;
+        y = 0;
+
+        afficherCarte();
+
+        visionneuse.classList.add("active");
+
+        document.body.style.overflow = "hidden";
+    });
+
+});
+
+
+/* ===== FERMER ===== */
+
+function fermerCarte() {
+    visionneuse.classList.remove("active");
+    document.body.style.overflow = "";
+    enTrainDeDeplacer = false;
+    visionneuse.classList.remove("dragging");
+}
+
+fermer.addEventListener("click", fermerCarte);
+
+document.addEventListener("keydown", function(event) {
+    if (event.key === "Escape") {
+        fermerCarte();
+    }
+});
+
+
+/* ===== DÉPLACEMENT ===== */
+
+visionneuse.addEventListener("pointerdown", function(event) {
+
+    if (event.target.closest("button")) {
+        return;
+    }
+
+    enTrainDeDeplacer = true;
+    aBouge = false;
+
+    departX = event.clientX;
+    departY = event.clientY;
+
+    dernierX = event.clientX;
+    dernierY = event.clientY;
+
+    visionneuse.classList.add("dragging");
+
+    visionneuse.setPointerCapture(event.pointerId);
+
+    event.preventDefault();
+});
+
+
+visionneuse.addEventListener("pointermove", function(event) {
+
+    if (!enTrainDeDeplacer) {
+        return;
+    }
+
+    const dx = event.clientX - dernierX;
+    const dy = event.clientY - dernierY;
+
+    if (
+        Math.abs(event.clientX - departX) > 3 ||
+        Math.abs(event.clientY - departY) > 3
+    ) {
+        aBouge = true;
+    }
+
+    x += dx;
+    y += dy;
+
+    dernierX = event.clientX;
+    dernierY = event.clientY;
+
+    afficherCarte();
+});
+
+
+function terminerDeplacement(event) {
+
+    if (!enTrainDeDeplacer) {
+        return;
+    }
+
+    enTrainDeDeplacer = false;
+    visionneuse.classList.remove("dragging");
+
+    try {
+        visionneuse.releasePointerCapture(event.pointerId);
+    } catch (e) {}
+}
+
+visionneuse.addEventListener("pointerup", terminerDeplacement);
+visionneuse.addEventListener("pointercancel", terminerDeplacement);
+
+
+/* ===== FERMER EN CLIQUANT DANS LE FOND ===== */
+/*
+   On attend un tout petit peu après le déplacement.
+   Cela évite que le relâchement de la souris ferme la carte.
+*/
+
+visionneuse.addEventListener("click", function(event) {
+
+    if (event.target !== visionneuse) {
+        return;
+    }
+
+    if (aBouge) {
+        aBouge = false;
+        return;
+    }
+
+    fermerCarte();
+});
+
+
+/* ===== ZOOM + ===== */
+
+plus.addEventListener("click", function(event) {
+
+    event.stopPropagation();
+
+    zoom += 0.25;
+
+    if (zoom > 5) {
+        zoom = 5;
+    }
+
+    afficherCarte();
+});
+
+
+/* ===== ZOOM - ===== */
+
+moins.addEventListener("click", function(event) {
+
+    event.stopPropagation();
+
+    zoom -= 0.25;
+
+    if (zoom < 0.5) {
+        zoom = 0.5;
+    }
+
+    afficherCarte();
+});
+
+
+/* ===== RESET ===== */
+
+reset.addEventListener("click", function(event) {
+
+    event.stopPropagation();
+
+    zoom = 1;
+    x = 0;
+    y = 0;
+
+    afficherCarte();
+});
+
+
+/* ===== MOLETTE ===== */
+
+visionneuse.addEventListener("wheel", function(event) {
+
+    event.preventDefault();
+
+    if (event.deltaY < 0) {
+        zoom += 0.1;
+    } else {
+        zoom -= 0.1;
+    }
+
+    if (zoom < 0.5) {
+        zoom = 0.5;
+    }
+
+    if (zoom > 5) {
+        zoom = 5;
+    }
+
+    afficherCarte();
+}, { passive: false });
+
+</script>
+
+</body>
+</html>
