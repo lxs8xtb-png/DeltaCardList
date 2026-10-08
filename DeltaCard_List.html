@@ -64,6 +64,42 @@ header p {
     color: #cbd5e1;
 }
 
+
+/* ===== FILTRES ===== */
+
+.filtres {
+    width: 90%;
+    max-width: 1200px;
+    margin: 10px auto 20px;
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.filtre {
+    padding: 10px 18px;
+    border: none;
+    border-radius: 8px;
+    background: #374151;
+    color: white;
+    cursor: pointer;
+    font-size: 15px;
+    font-weight: bold;
+    transition: 0.2s;
+}
+
+.filtre:hover {
+    background: #4b5563;
+}
+
+.filtre.actif {
+    background: #dc2626;
+}
+
+
+/* ===== COLLECTION ===== */
+
 .collection {
     width: 90%;
     max-width: 1200px;
@@ -76,9 +112,16 @@ header p {
 
 .carte {
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+    align-items: center;
     cursor: pointer;
     transition: transform 0.3s ease;
+}
+
+.carte-image {
+    width: 100%;
+    display: flex;
+    justify-content: center;
 }
 
 .carte img {
@@ -86,6 +129,7 @@ header p {
     max-width: 250px;
     border-radius: 15px;
     box-shadow: 0 8px 20px rgba(0,0,0,0.5);
+    transition: box-shadow 0.3s ease;
 }
 
 .carte:hover {
@@ -95,6 +139,45 @@ header p {
 .carte:hover img {
     box-shadow: 0 15px 35px rgba(0,0,0,0.8);
 }
+
+
+/* ===== CARTE OBTENUE ===== */
+
+.carte.obtenue img {
+    box-shadow:
+        0 0 0 4px #22c55e,
+        0 8px 25px rgba(34,197,94,0.4);
+}
+
+
+/* ===== CASE OBTENUE ===== */
+
+.case-obtenue {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 12px;
+    color: white;
+    font-size: 15px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.checkbox-carte {
+    width: 18px;
+    height: 18px;
+    cursor: pointer;
+    accent-color: #22c55e;
+}
+
+
+/* ===== CARTE CACHÉE ===== */
+
+.carte.cachee {
+    display: none;
+}
+
 
 /* ===== VISIONNEUSE ===== */
 
@@ -173,6 +256,9 @@ header p {
     background: #fde047;
 }
 
+
+/* ===== FOOTER ===== */
+
 footer {
     text-align: center;
     padding: 25px;
@@ -180,7 +266,11 @@ footer {
     color: #94a3b8;
 }
 
+
+/* ===== MOBILE ===== */
+
 @media (max-width: 600px) {
+
     nav {
         flex-direction: column;
         gap: 15px;
@@ -198,14 +288,28 @@ footer {
         max-width: 90vw;
         max-height: 75vh;
     }
+
+    .filtres {
+        gap: 7px;
+    }
+
+    .filtre {
+        padding: 9px 12px;
+        font-size: 14px;
+    }
 }
+
 </style>
 </head>
 
+
 <body>
+
+<!-- ===== NAVIGATION ===== -->
 
 <nav>
     <h1>Toutes les DeltaCards</h1>
+
     <ul>
         <li><a href="#accueil">Accueil</a></li>
         <li><a href="#collection">Mes cartes</a></li>
@@ -213,287 +317,881 @@ footer {
     </ul>
 </nav>
 
+
+<!-- ===== ACCUEIL ===== -->
+
 <header id="accueil">
+
     <h2>🎴 Mes DeltaCards</h2>
-    <p>Voici toutes les cartes Pokémon que j'ai créées !</p>
+
+    <p>
+        Voici toutes les cartes Pokémon que j'ai créées !
+    </p>
+
 </header>
 
+
+<!-- ===== COLLECTION ===== -->
+
 <main id="collection">
-    <div class="collection">
 
-        <div class="carte">
-            <img src="Delta1.png" alt="Carte Delta 1">
-        </div>
 
-        <div class="carte">
-            <img src="Delta2.png" alt="Carte Delta 2">
-        </div>
+    <!-- ===== FILTRES ===== -->
 
-        <div class="carte">
-            <img src="Delta3.png" alt="Carte Delta 3">
-        </div>
+    <div class="filtres">
 
-        <div class="carte">
-            <img src="Delta4.png" alt="Carte Delta 4">
-        </div>
+        <button class="filtre actif" data-filtre="toutes">
+            Toutes
+        </button>
+
+        <button class="filtre" data-filtre="obtenues">
+            ✓ Obtenues
+        </button>
+
+        <button class="filtre" data-filtre="non-obtenues">
+            ✗ Non obtenues
+        </button>
 
     </div>
+
+
+    <div class="collection">
+
+
+        <!-- ===== CARTE 1 ===== -->
+
+        <div class="carte" data-carte="1" data-obtenue="false">
+
+            <div class="carte-image">
+                <img src="Delta1.png" alt="Carte Delta 1">
+            </div>
+
+            <label class="case-obtenue">
+
+                <input
+                    type="checkbox"
+                    class="checkbox-carte"
+                >
+
+                <span>Obtenue</span>
+
+            </label>
+
+        </div>
+
+
+        <!-- ===== CARTE 2 ===== -->
+
+        <div class="carte" data-carte="2" data-obtenue="false">
+
+            <div class="carte-image">
+                <img src="Delta2.png" alt="Carte Delta 2">
+            </div>
+
+            <label class="case-obtenue">
+
+                <input
+                    type="checkbox"
+                    class="checkbox-carte"
+                >
+
+                <span>Obtenue</span>
+
+            </label>
+
+        </div>
+
+
+        <!-- ===== CARTE 3 ===== -->
+
+        <div class="carte" data-carte="3" data-obtenue="false">
+
+            <div class="carte-image">
+                <img src="Delta3.png" alt="Carte Delta 3">
+            </div>
+
+            <label class="case-obtenue">
+
+                <input
+                    type="checkbox"
+                    class="checkbox-carte"
+                >
+
+                <span>Obtenue</span>
+
+            </label>
+
+        </div>
+
+
+        <!-- ===== CARTE 4 ===== -->
+
+        <div class="carte" data-carte="4" data-obtenue="false">
+
+            <div class="carte-image">
+                <img src="Delta4.png" alt="Carte Delta 4">
+            </div>
+
+            <label class="case-obtenue">
+
+                <input
+                    type="checkbox"
+                    class="checkbox-carte"
+                >
+
+                <span>Obtenue</span>
+
+            </label>
+
+        </div>
+
+
+    </div>
+
 </main>
 
+
+<!-- ===== À PROPOS ===== -->
+
 <section id="apropos">
+
     <header>
+
         <h2>À propos</h2>
-        <p>Juste des DeltaCards.</p>
+
+        <p>
+            Juste des DeltaCards.
+        </p>
+
     </header>
+
 </section>
 
+
+<!-- ===== FOOTER ===== -->
+
 <footer>
+
     Les DeltaCards © 2026
+
 </footer>
+
 
 <!-- ===== VISIONNEUSE ===== -->
 
 <div class="visionneuse" id="visionneuse">
 
-    <button class="fermer" id="fermer">×</button>
+    <button class="fermer" id="fermer">
+        ×
+    </button>
 
-    <img id="grandeCarte" src="" alt="Carte agrandie">
+
+    <img
+        id="grandeCarte"
+        src=""
+        alt="Carte agrandie"
+    >
+
 
     <div class="controles">
-        <button id="moins">−</button>
-        <button id="reset">Réinitialiser</button>
-        <button id="plus">+</button>
+
+        <button id="moins">
+            −
+        </button>
+
+        <button id="reset">
+            Réinitialiser
+        </button>
+
+        <button id="plus">
+            +
+        </button>
+
     </div>
 
 </div>
 
-<script>
-const visionneuse = document.getElementById("visionneuse");
-const grandeCarte = document.getElementById("grandeCarte");
 
-const fermer = document.getElementById("fermer");
-const plus = document.getElementById("plus");
-const moins = document.getElementById("moins");
-const reset = document.getElementById("reset");
+<!-- ===== JAVASCRIPT ===== -->
+
+<script>
+
+/* =====================================================
+   VISIONNEUSE
+   ===================================================== */
+
+const visionneuse =
+    document.getElementById("visionneuse");
+
+const grandeCarte =
+    document.getElementById("grandeCarte");
+
+const fermer =
+    document.getElementById("fermer");
+
+const plus =
+    document.getElementById("plus");
+
+const moins =
+    document.getElementById("moins");
+
+const reset =
+    document.getElementById("reset");
+
 
 let zoom = 1;
+
 let x = 0;
+
 let y = 0;
 
 let enTrainDeDeplacer = false;
+
 let aBouge = false;
+
 let departX = 0;
+
 let departY = 0;
+
 let dernierX = 0;
+
 let dernierY = 0;
 
 
 /* ===== AFFICHER LA CARTE ===== */
 
 function afficherCarte() {
+
     grandeCarte.style.transform =
-        "translate(" + x + "px, " + y + "px) scale(" + zoom + ")";
+        "translate(" +
+        x +
+        "px, " +
+        y +
+        "px) scale(" +
+        zoom +
+        ")";
+
 }
 
 
-/* ===== OUVRIR ===== */
+/* ===== OUVRIR UNE CARTE ===== */
 
-document.querySelectorAll(".carte img").forEach(image => {
+document
+    .querySelectorAll(".carte img")
+    .forEach(image => {
 
-    image.addEventListener("click", function() {
+        image.addEventListener(
+            "click",
+            function() {
 
-        grandeCarte.src = this.src;
+                grandeCarte.src =
+                    this.src;
 
-        zoom = 1;
-        x = 0;
-        y = 0;
+                zoom = 1;
 
-        afficherCarte();
+                x = 0;
 
-        visionneuse.classList.add("active");
+                y = 0;
 
-        document.body.style.overflow = "hidden";
+                afficherCarte();
+
+                visionneuse.classList.add(
+                    "active"
+                );
+
+                document.body.style.overflow =
+                    "hidden";
+
+            }
+        );
+
     });
-
-});
 
 
 /* ===== FERMER ===== */
 
 function fermerCarte() {
-    visionneuse.classList.remove("active");
-    document.body.style.overflow = "";
-    enTrainDeDeplacer = false;
-    visionneuse.classList.remove("dragging");
+
+    visionneuse.classList.remove(
+        "active"
+    );
+
+    document.body.style.overflow =
+        "";
+
+    enTrainDeDeplacer =
+        false;
+
+    visionneuse.classList.remove(
+        "dragging"
+    );
+
 }
 
-fermer.addEventListener("click", fermerCarte);
 
-document.addEventListener("keydown", function(event) {
-    if (event.key === "Escape") {
-        fermerCarte();
+fermer.addEventListener(
+    "click",
+    fermerCarte
+);
+
+
+document.addEventListener(
+    "keydown",
+    function(event) {
+
+        if (event.key === "Escape") {
+
+            fermerCarte();
+
+        }
+
     }
-});
+);
 
 
 /* ===== DÉPLACEMENT ===== */
 
-visionneuse.addEventListener("pointerdown", function(event) {
+visionneuse.addEventListener(
+    "pointerdown",
+    function(event) {
 
-    if (event.target.closest("button")) {
-        return;
+        if (
+            event.target.closest("button")
+        ) {
+
+            return;
+
+        }
+
+        enTrainDeDeplacer =
+            true;
+
+        aBouge = false;
+
+        departX =
+            event.clientX;
+
+        departY =
+            event.clientY;
+
+        dernierX =
+            event.clientX;
+
+        dernierY =
+            event.clientY;
+
+        visionneuse.classList.add(
+            "dragging"
+        );
+
+        visionneuse.setPointerCapture(
+            event.pointerId
+        );
+
+        event.preventDefault();
+
     }
-
-    enTrainDeDeplacer = true;
-    aBouge = false;
-
-    departX = event.clientX;
-    departY = event.clientY;
-
-    dernierX = event.clientX;
-    dernierY = event.clientY;
-
-    visionneuse.classList.add("dragging");
-
-    visionneuse.setPointerCapture(event.pointerId);
-
-    event.preventDefault();
-});
+);
 
 
-visionneuse.addEventListener("pointermove", function(event) {
+visionneuse.addEventListener(
+    "pointermove",
+    function(event) {
+
+        if (!enTrainDeDeplacer) {
+
+            return;
+
+        }
+
+        const dx =
+            event.clientX -
+            dernierX;
+
+        const dy =
+            event.clientY -
+            dernierY;
+
+
+        if (
+            Math.abs(
+                event.clientX -
+                departX
+            ) > 3 ||
+
+            Math.abs(
+                event.clientY -
+                departY
+            ) > 3
+        ) {
+
+            aBouge = true;
+
+        }
+
+
+        x += dx;
+
+        y += dy;
+
+        dernierX =
+            event.clientX;
+
+        dernierY =
+            event.clientY;
+
+        afficherCarte();
+
+    }
+);
+
+
+/* ===== FIN DU DÉPLACEMENT ===== */
+
+function terminerDeplacement(
+    event
+) {
 
     if (!enTrainDeDeplacer) {
+
         return;
+
     }
 
-    const dx = event.clientX - dernierX;
-    const dy = event.clientY - dernierY;
+    enTrainDeDeplacer =
+        false;
 
-    if (
-        Math.abs(event.clientX - departX) > 3 ||
-        Math.abs(event.clientY - departY) > 3
-    ) {
-        aBouge = true;
-    }
+    visionneuse.classList.remove(
+        "dragging"
+    );
 
-    x += dx;
-    y += dy;
-
-    dernierX = event.clientX;
-    dernierY = event.clientY;
-
-    afficherCarte();
-});
-
-
-function terminerDeplacement(event) {
-
-    if (!enTrainDeDeplacer) {
-        return;
-    }
-
-    enTrainDeDeplacer = false;
-    visionneuse.classList.remove("dragging");
 
     try {
-        visionneuse.releasePointerCapture(event.pointerId);
-    } catch (e) {}
+
+        visionneuse.releasePointerCapture(
+            event.pointerId
+        );
+
+    }
+
+    catch (e) {}
+
 }
 
-visionneuse.addEventListener("pointerup", terminerDeplacement);
-visionneuse.addEventListener("pointercancel", terminerDeplacement);
+
+visionneuse.addEventListener(
+    "pointerup",
+    terminerDeplacement
+);
 
 
-/* ===== FERMER EN CLIQUANT DANS LE FOND ===== */
-/*
-   On attend un tout petit peu après le déplacement.
-   Cela évite que le relâchement de la souris ferme la carte.
-*/
+visionneuse.addEventListener(
+    "pointercancel",
+    terminerDeplacement
+);
 
-visionneuse.addEventListener("click", function(event) {
 
-    if (event.target !== visionneuse) {
-        return;
+/* ===== FERMER EN CLIQUANT SUR LE FOND ===== */
+
+visionneuse.addEventListener(
+    "click",
+    function(event) {
+
+        if (
+            event.target !==
+            visionneuse
+        ) {
+
+            return;
+
+        }
+
+
+        if (aBouge) {
+
+            aBouge = false;
+
+            return;
+
+        }
+
+
+        fermerCarte();
+
     }
-
-    if (aBouge) {
-        aBouge = false;
-        return;
-    }
-
-    fermerCarte();
-});
+);
 
 
 /* ===== ZOOM + ===== */
 
-plus.addEventListener("click", function(event) {
+plus.addEventListener(
+    "click",
+    function(event) {
 
-    event.stopPropagation();
+        event.stopPropagation();
 
-    zoom += 0.25;
+        zoom += 0.25;
 
-    if (zoom > 5) {
-        zoom = 5;
+
+        if (zoom > 5) {
+
+            zoom = 5;
+
+        }
+
+
+        afficherCarte();
+
     }
-
-    afficherCarte();
-});
+);
 
 
 /* ===== ZOOM - ===== */
 
-moins.addEventListener("click", function(event) {
+moins.addEventListener(
+    "click",
+    function(event) {
 
-    event.stopPropagation();
+        event.stopPropagation();
 
-    zoom -= 0.25;
+        zoom -= 0.25;
 
-    if (zoom < 0.5) {
-        zoom = 0.5;
+
+        if (zoom < 0.5) {
+
+            zoom = 0.5;
+
+        }
+
+
+        afficherCarte();
+
     }
-
-    afficherCarte();
-});
+);
 
 
 /* ===== RESET ===== */
 
-reset.addEventListener("click", function(event) {
+reset.addEventListener(
+    "click",
+    function(event) {
 
-    event.stopPropagation();
+        event.stopPropagation();
 
-    zoom = 1;
-    x = 0;
-    y = 0;
+        zoom = 1;
 
-    afficherCarte();
-});
+        x = 0;
+
+        y = 0;
+
+        afficherCarte();
+
+    }
+);
 
 
 /* ===== MOLETTE ===== */
 
-visionneuse.addEventListener("wheel", function(event) {
+visionneuse.addEventListener(
+    "wheel",
+    function(event) {
 
-    event.preventDefault();
+        event.preventDefault();
 
-    if (event.deltaY < 0) {
-        zoom += 0.1;
-    } else {
-        zoom -= 0.1;
+
+        if (event.deltaY < 0) {
+
+            zoom += 0.1;
+
+        }
+
+        else {
+
+            zoom -= 0.1;
+
+        }
+
+
+        if (zoom < 0.5) {
+
+            zoom = 0.5;
+
+        }
+
+
+        if (zoom > 5) {
+
+            zoom = 5;
+
+        }
+
+
+        afficherCarte();
+
+    },
+    {
+        passive: false
     }
+);
 
-    if (zoom < 0.5) {
-        zoom = 0.5;
+
+
+/* =====================================================
+   COLLECTION
+   ===================================================== */
+
+const cartes =
+    document.querySelectorAll(".carte");
+
+const boutonsFiltres =
+    document.querySelectorAll(".filtre");
+
+
+let filtreActuel =
+    "toutes";
+
+
+/* ===== CHARGER LA SAUVEGARDE ===== */
+
+function chargerCollection() {
+
+    const sauvegarde =
+        JSON.parse(
+            localStorage.getItem(
+                "deltacards-obtenues"
+            ) || "{}"
+        );
+
+
+    cartes.forEach(carte => {
+
+        const numero =
+            carte.dataset.carte;
+
+        const checkbox =
+            carte.querySelector(
+                ".checkbox-carte"
+            );
+
+
+        if (
+            sauvegarde[numero] === true
+        ) {
+
+            checkbox.checked =
+                true;
+
+            carte.dataset.obtenue =
+                "true";
+
+            carte.classList.add(
+                "obtenue"
+            );
+
+        }
+
+    });
+
+}
+
+
+/* ===== SAUVEGARDER ===== */
+
+function sauvegarderCollection() {
+
+    const sauvegarde = {};
+
+
+    cartes.forEach(carte => {
+
+        const numero =
+            carte.dataset.carte;
+
+        const checkbox =
+            carte.querySelector(
+                ".checkbox-carte"
+            );
+
+
+        sauvegarde[numero] =
+            checkbox.checked;
+
+    });
+
+
+    localStorage.setItem(
+        "deltacards-obtenues",
+        JSON.stringify(
+            sauvegarde
+        )
+    );
+
+}
+
+
+/* ===== APPLIQUER UN FILTRE ===== */
+
+function appliquerFiltre(
+    filtre
+) {
+
+    cartes.forEach(carte => {
+
+        const obtenue =
+            carte.dataset.obtenue ===
+            "true";
+
+
+        if (
+            filtre === "toutes"
+        ) {
+
+            carte.classList.remove(
+                "cachee"
+            );
+
+        }
+
+
+        else if (
+            filtre === "obtenues"
+        ) {
+
+            carte.classList.toggle(
+                "cachee",
+                !obtenue
+            );
+
+        }
+
+
+        else if (
+            filtre === "non-obtenues"
+        ) {
+
+            carte.classList.toggle(
+                "cachee",
+                obtenue
+            );
+
+        }
+
+    });
+
+}
+
+
+/* ===== CASES À COCHER ===== */
+
+document
+    .querySelectorAll(
+        ".checkbox-carte"
+    )
+    .forEach(checkbox => {
+
+        checkbox.addEventListener(
+            "change",
+            function(event) {
+
+                event.stopPropagation();
+
+
+                const carte =
+                    this.closest(
+                        ".carte"
+                    );
+
+
+                carte.dataset.obtenue =
+                    this.checked
+                        ? "true"
+                        : "false";
+
+
+                carte.classList.toggle(
+                    "obtenue",
+                    this.checked
+                );
+
+
+                sauvegarderCollection();
+
+                appliquerFiltre(
+                    filtreActuel
+                );
+
+            }
+        );
+
+    });
+
+
+/* ===== EMPÊCHER L'OUVERTURE
+   EN CLIQUANT SUR "OBTENUE" ===== */
+
+document
+    .querySelectorAll(
+        ".case-obtenue"
+    )
+    .forEach(label => {
+
+        label.addEventListener(
+            "click",
+            function(event) {
+
+                event.stopPropagation();
+
+            }
+        );
+
+    });
+
+
+/* ===== BOUTONS FILTRES ===== */
+
+boutonsFiltres.forEach(
+    bouton => {
+
+        bouton.addEventListener(
+            "click",
+            function() {
+
+                boutonsFiltres.forEach(
+                    btn => {
+
+                        btn.classList.remove(
+                            "actif"
+                        );
+
+                    }
+                );
+
+
+                this.classList.add(
+                    "actif"
+                );
+
+
+                filtreActuel =
+                    this.dataset.filtre;
+
+
+                appliquerFiltre(
+                    filtreActuel
+                );
+
+            }
+        );
+
     }
+);
 
-    if (zoom > 5) {
-        zoom = 5;
-    }
 
-    afficherCarte();
-}, { passive: false });
+/* ===== DÉMARRAGE ===== */
+
+chargerCollection();
+
+appliquerFiltre("toutes");
 
 </script>
 
